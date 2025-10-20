@@ -1,0 +1,43 @@
+{
+  "name": "baks-dev/users-profile-balance",
+  "description": "Баланс профилей пользователя",
+  "homepage": "https://github.com/baks-dev/users-profile-balance",
+  "keywords": [
+    "symfony",
+    "bundle",
+    "library",
+    "module",
+    "plugin",
+    "user",
+    "profile",
+    "balance",
+    "baksdev"
+  ],
+  "license": "MIT",
+  "type": "symfony-bundle",
+  "authors": [
+    {
+      "name": "Baks Development",
+      "email": "admin@baks.dev"
+    }
+  ],
+  "require": {
+    "php": ">=8.4",
+    "baks-dev/core": "^7.3"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "symfony/test-pack": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "BaksDev\\Users\\Profile\\Balance\\": ""
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "symfony/flex": true
+    }
+  }
+}

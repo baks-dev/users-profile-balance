@@ -1,0 +1,8 @@
+{
+  "namespaces": [
+    {
+      "namespace": "users-profile-balance",
+      "path": "Resources/view"
+    }
+  ]
+}
