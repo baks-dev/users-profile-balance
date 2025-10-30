@@ -25,36 +25,24 @@ declare(strict_types=1);
 
 namespace BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\AddDebt;
 
-use BaksDev\Core\Entity\AbstractHandler;
-use BaksDev\Core\Messenger\MessageDispatchInterface;
-use BaksDev\Core\Validator\ValidatorCollectionInterface;
-use BaksDev\Files\Resources\Upload\File\FileUploadInterface;
-use BaksDev\Files\Resources\Upload\Image\ImageUploadInterface;
 use BaksDev\Users\Profile\Balance\Entity\Event\ProfileBalanceEvent;
 use BaksDev\Users\Profile\Balance\Entity\Invariable\ProfileBalanceInvariable;
 use BaksDev\Users\Profile\Balance\Entity\ProfileBalance;
-use BaksDev\Users\Profile\Balance\Messenger\ProfileBalanceMessage;
 use BaksDev\Users\Profile\Balance\Repository\ProfileBalanceByProfiles\ProfileBalanceByProfilesInterface;
 use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\NewEdit\Debt\ProfileBalanceDebtDTO;
 use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\NewEdit\Invariable\ProfileBalanceInvariableDTO;
 use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\NewEdit\ProfileBalanceDTO;
+use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\NewEdit\ProfileBalanceHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 
-final class AddDebtHandler extends AbstractHandler
+final readonly class AddDebtHandler
 {
     public function __construct(
-        private readonly ProfileBalanceByProfilesInterface $ProfileBalanceByProfilesRepository,
-
-        EntityManagerInterface $entityManager,
-        MessageDispatchInterface $messageDispatch,
-        ValidatorCollectionInterface $validatorCollection,
-        ImageUploadInterface $imageUpload,
-        FileUploadInterface $fileUpload,
-    )
-    {
-        parent::__construct($entityManager, $messageDispatch, $validatorCollection, $imageUpload, $fileUpload);
-    }
+        private ProfileBalanceByProfilesInterface $ProfileBalanceByProfilesRepository,
+        private ProfileBalanceHandler $ProfileBalanceHandler,
+        private EntityManagerInterface $EntityManager,
+    ) {}
 
     public function handle(AddDebtDTO $command): ProfileBalance|string
     {
@@ -80,7 +68,7 @@ final class AddDebtHandler extends AbstractHandler
 
         if(true === ($profileBalanceInvariable instanceof ProfileBalanceInvariable))
         {
-            $profileBalanceEvent = $this
+            $profileBalanceEvent = $this->EntityManager
                 ->getRepository(ProfileBalanceEvent::class)
                 ->find($profileBalanceInvariable->getEvent());
 
@@ -96,25 +84,6 @@ final class AddDebtHandler extends AbstractHandler
             $profileBalanceEvent->getDto($profileBalanceDTO);
         }
 
-        $this->setCommand($profileBalanceDTO);
-        $this->preEventPersistOrUpdate(ProfileBalance::class, ProfileBalanceEvent::class);
-
-
-        /** Валидация всех объектов */
-        if($this->validatorCollection->isInvalid())
-        {
-            return $this->validatorCollection->getErrorUniqid();
-        }
-
-        $this->flush();
-
-
-        /* Отправляем сообщение в шину */
-        $this->messageDispatch->dispatch(
-            message: new ProfileBalanceMessage($this->main->getId(), $this->event->getId()),
-            transport: 'users-profile-balance'
-        );
-
-        return $this->main;
+        return $this->ProfileBalanceHandler->handle($profileBalanceDTO);
     }
 }

@@ -11,3 +11,11 @@ ROLE_PROFILE_BALANCE:
 ROLE_PROFILE_BALANCE_INDEX:
   name: 'Задолженности пользователей'
   desc: 'Задолженности и баланс пользователей'
+
+ROLE_PROFILE_BALANCE_EDIT:
+  name: 'Редактирование баланс пользователя'
+  desc: 'Редактирование задолженность и баланс пользователя'
+
+ROLE_PROFILE_BALANCE_NEW:
+  name: 'Пополнение баланса клиентов'
+  desc: 'Пополнение баланса клиентов'

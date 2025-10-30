@@ -44,6 +44,11 @@ final readonly class StatusOrderCompletedOnBalanceSubDispatcher
         private MessageDispatchInterface $MessageDispatch,
     ) {}
 
+    /**
+     * Диспатчер меняет статус оплаченного заказа на "Выполнен" и отправляет сообщение на диспатчер
+     * SubDebtAndBalanceDispatcher для проверки и возможной оплаты следующего заказа
+     * @see SubDebtAndBalanceDispatcher
+     */
     public function __invoke(StatusOrderCompletedOnBalanceSubMessage $message): void
     {
         /** Изменение статуса заказа */

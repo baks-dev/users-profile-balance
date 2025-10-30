@@ -27,6 +27,7 @@ namespace BaksDev\Users\Profile\Balance\Messenger;
 
 use BaksDev\Core\Messenger\MessageDispatchInterface;
 use BaksDev\Orders\Order\Entity\Event\OrderEvent;
+use BaksDev\Orders\Order\Entity\Products\OrderProduct;
 use BaksDev\Orders\Order\Repository\GetOldestUnpaidOrder\GetOldestUnpaidOrderInterface;
 use BaksDev\Reference\Money\Type\Money;
 use BaksDev\Users\Profile\Balance\Entity\Event\ProfileBalanceEvent;
@@ -51,6 +52,13 @@ final readonly class SubDebtAndBalanceDispatcher
     )
     {}
 
+    /**
+     * Диспатчер проверяет наличие заказов данного покупателя в статусе "Не оплачен", проверяет возможность оплаты
+     * наиболее старого из них с учетом баланса пользователя и, при необходимости, снимает средства с баланса и
+     * задолженности пользователя. При этом отправляется сообщение для диспатчера
+     * StatusOrderCompletedOnBalanceSubDispatcher на изменение статуса оплаченного заказа на "Выполнен"
+     * @see StatusOrderCompletedOnBalanceSubDispatcher
+     */
     public function __invoke(ProfileBalanceMessage $message): void
     {
         /** Получаем данные о балансе покупателя, его профиль и профиль магазина */
@@ -89,6 +97,7 @@ final readonly class SubDebtAndBalanceDispatcher
         /** Подсчет общей стоимости заказа */
         $total = 0;
 
+        /** @var OrderProduct $product */
         foreach($orderEvent->getProduct() as $product)
         {
             $total += $product->getPrice()->getValue() * $product->getTotal();

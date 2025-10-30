@@ -50,6 +50,9 @@ final readonly class AddDebtOnStatusUnpaidDispatcher
         private UserProfileTokenStorageInterface $UserProfileTokenStorage,
     ) {}
 
+    /**
+     * Диспатчер увеличивает задолженность пользователя при отправке ег заказа в статус "Не оплачен"
+     */
     public function __invoke(OrderMessage $message): void
     {
         $Deduplicator = $this->Deduplicator
