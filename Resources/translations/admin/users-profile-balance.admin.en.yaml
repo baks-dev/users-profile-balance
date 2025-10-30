@@ -1,0 +1,15 @@
+page:
+  index: 'Debts and balance of users'
+  new: 'Add balance of user'
+  edit: 'Edit user balance'
+
+breadcrumb:
+  index: 'Debts and balance of users'
+
+success:
+  new: 'Balance of the user was successfully topped up'
+  edit: 'Balance was successfully changed'
+
+danger:
+  new: 'Error on topping balance of user up'
+  edit: 'Error on balance edit'

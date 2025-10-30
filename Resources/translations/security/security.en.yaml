@@ -1,0 +1,16 @@
+ROLE_PROFILE_BALANCE:
+  header: 'Debt of clients'
+  name: 'Debt and balance of clients'
+  desc: 'Debt and balance of clients'
+
+ROLE_PROFILE_BALANCE_INDEX:
+  name: 'Debt of clients'
+  desc: 'Debt and balance of clients'
+
+ROLE_PROFILE_BALANCE_EDIT:
+  name: 'Edit balance of the client'
+  desc: 'Edit debt and balance of the client'
+
+ROLE_PROFILE_BALANCE_NEW:
+  name: 'Top up balance of clients'
+  desc: 'Top up balance of clients'

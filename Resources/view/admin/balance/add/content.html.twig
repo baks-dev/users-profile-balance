@@ -1,0 +1,6 @@
+{% trans_default_domain('users-profile-balance.admin') %}
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+    {{ include(_self|replace({ "content.html.twig": baks_settings.device~"/form.html.twig" })) }}
+{% endblock %}
