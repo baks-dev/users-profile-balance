@@ -1,0 +1,8 @@
+ROLE_PROFILE_BALANCE:
+  header: 'Debt of clients'
+  name: 'Debt and balance of clients'
+  desc: 'Debt and balance of clients'
+
+ROLE_PROFILE_BALANCE_INDEX:
+  name: 'Debt of clients'
+  desc: 'Debt and balance of clients'

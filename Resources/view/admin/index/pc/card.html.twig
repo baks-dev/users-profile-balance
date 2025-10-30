@@ -1,0 +1,30 @@
+<tr class="vertical-middle">
+
+    <td class="text-nowrap">
+        {% if is_granted(ROLE~'_EDIT') or is_granted('ROLE_ADMIN') %}
+            {# Пользовательское меню #}
+            {{ include(_self|replace({ "card.html.twig": "_usecase.html.twig" })) }}
+        {% endif %}
+    </td>
+
+    <td class="w-25">
+
+        <div class="d-flex">
+
+            <div class="ms-0">
+                {# Username #}
+                {{ item.profileUsername }}
+            </div>
+
+        </div>
+    </td>
+
+    <td class="text-center">
+        {{ item.debt.value }}
+    </td>
+
+    <td class="text-center">
+        {{ item.balance.value }}
+    </td>
+
+</tr>
