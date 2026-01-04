@@ -71,7 +71,7 @@ final class AllProfilesBalanceRepositoryTest extends KernelTestCase
                 {
                     // Вызываем метод
                     $value = $method->invoke($data);
-                    dump($value);
+                    // dump($value);
                 }
             }
         }

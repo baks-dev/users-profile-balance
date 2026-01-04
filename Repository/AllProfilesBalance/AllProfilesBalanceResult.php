@@ -36,7 +36,7 @@ final readonly class AllProfilesBalanceResult
         private string $profile,
         private int $debt,
         private int $balance,
-        private string $profile_username,
+        private string|null $profile_username,
     ) {}
 
     public function getMain(): ProfileBalanceUid
@@ -59,7 +59,7 @@ final readonly class AllProfilesBalanceResult
         return new Money($this->balance, true);
     }
 
-    public function getProfileUsername(): string
+    public function getProfileUsername(): ?string
     {
         return $this->profile_username;
     }
