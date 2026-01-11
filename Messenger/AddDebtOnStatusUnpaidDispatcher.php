@@ -39,20 +39,21 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Target;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+/**
+ * Увеличиваем задолженность пользователя при отправке заказа в статус Unpaid «В ожидании оплаты»
+ */
 #[AsMessageHandler(priority: 0)]
 final readonly class AddDebtOnStatusUnpaidDispatcher
 {
     public function __construct(
+        #[Target('usersProfileBalanceLogger')] private LoggerInterface $Logger,
         private DeduplicatorInterface $Deduplicator,
         private OrderEventInterface $OrderEventRepository,
-        #[Target('usersProfileBalanceLogger')] private LoggerInterface $Logger,
         private AddDebtHandler $AddDebtHandler,
         private UserProfileTokenStorageInterface $UserProfileTokenStorage,
     ) {}
 
-    /**
-     * Диспатчер увеличивает задолженность пользователя при отправке ег заказа в статус "Не оплачен"
-     */
+
     public function __invoke(OrderMessage $message): void
     {
         $Deduplicator = $this->Deduplicator
