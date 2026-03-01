@@ -37,7 +37,9 @@ use BaksDev\Users\Profile\Balance\Repository\ProfileBalanceByProfiles\ProfileBal
 use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\NewEdit\ProfileBalanceDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
+#[Autoconfigure(public: true)]
 final class SubBalanceHandler extends AbstractHandler
 {
     public function __construct(
