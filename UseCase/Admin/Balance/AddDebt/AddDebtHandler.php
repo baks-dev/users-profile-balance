@@ -37,7 +37,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
-#[Autoconfigure(public: true)]
+// #[Autoconfigure(public: true)]
 final readonly class AddDebtHandler
 {
     public function __construct(

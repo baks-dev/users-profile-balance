@@ -39,7 +39,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
-#[Autoconfigure(public: true)]
+// #[Autoconfigure(public: true)]
 final class SubBalanceHandler extends AbstractHandler
 {
     public function __construct(
