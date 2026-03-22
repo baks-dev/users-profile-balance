@@ -30,8 +30,8 @@ use Symfony\Component\Uid\AbstractUid;
 
 final class ProfileBalanceEventUid extends Uid
 {
-	/** Тестовый идентификатор */
-	public const string TEST = '019a05c3-365f-768c-bd47-51a3d8271fb8';
+    /** Тестовый идентификатор */
+    public const string TEST = '019a05c3-365f-768c-bd47-51a3d8271fb8';
 
     public const string TYPE = 'profile_balance_event';
 

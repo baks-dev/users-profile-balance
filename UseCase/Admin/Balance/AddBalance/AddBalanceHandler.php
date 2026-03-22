@@ -84,6 +84,6 @@ final readonly class AddBalanceHandler
             $profileBalanceEvent->getDto($profileBalanceDTO);
         }
 
-       return $this->ProfileBalanceHandler->handle($profileBalanceDTO);
+        return $this->ProfileBalanceHandler->handle($profileBalanceDTO);
     }
 }

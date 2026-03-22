@@ -31,18 +31,17 @@ use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\NewEdit\Tests\ProfileBal
 use BaksDev\Users\User\Tests\TestUserAccount;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use PHPUnit\Framework\Attributes\Group;
 
 #[Group('users-profile-balance')]
 #[Group('users-profile-balance-controller')]
 #[When(env: 'test')]
 final class EditControllerTest extends WebTestCase
 {
-    private static string $url = '/admin/profile/balance/edit/%s';
-
     private const string ROLE = 'ROLE_PROFILE_BALANCE_EDIT';
+    private static string $url = '/admin/profile/balance/edit/%s';
 
     public static function setUpBeforeClass(): void
     {

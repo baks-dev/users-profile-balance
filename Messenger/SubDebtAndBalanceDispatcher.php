@@ -49,14 +49,14 @@ final readonly class SubDebtAndBalanceDispatcher
         private SubBalanceHandler $SubBalanceHandler,
         private MessageDispatchInterface $MessageDispatch,
         private CurrentProfileBalanceEventInterface $CurrentProfileBalanceEventRepository,
-    )
-    {}
+    ) {}
 
     /**
      * Диспатчер проверяет наличие заказов данного покупателя в статусе "Не оплачен", проверяет возможность оплаты
      * наиболее старого из них с учетом баланса пользователя и, при необходимости, снимает средства с баланса и
      * задолженности пользователя. При этом отправляется сообщение для диспатчера
      * StatusOrderCompletedOnBalanceSubDispatcher на изменение статуса оплаченного заказа на "Выполнен"
+     *
      * @see StatusOrderCompletedOnBalanceSubDispatcher
      */
     public function __invoke(ProfileBalanceMessage $message): void
@@ -89,7 +89,7 @@ final readonly class SubDebtAndBalanceDispatcher
                 'Для данного покупателя не было найдено неоплаченных заказов',
                 [self::class.':'.__LINE__, var_export($message, true)],
             );
-            
+
             return;
         }
 
@@ -139,7 +139,7 @@ final readonly class SubDebtAndBalanceDispatcher
                     $orderEvent->getComment(),
                     $message->getId(),
                 ),
-                transport: 'users-profile-balance'
+                transport: 'users-profile-balance',
             );
         }
     }

@@ -31,9 +31,9 @@ use BaksDev\Users\Profile\Balance\Repository\ProfileBalanceByProfiles\ProfileBal
 use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\NewEdit\Tests\ProfileBalanceHandlerNewTest;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use PHPUnit\Framework\Attributes\Group;
 
 #[Group('users-profile-balance')]
 #[Group('users-profile-balance-repository')]

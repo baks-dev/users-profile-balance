@@ -33,7 +33,7 @@ return function(RoutingConfigurator $routes) {
         $PATH.'Controller',
         'attribute',
         false,
-        $PATH.implode(DIRECTORY_SEPARATOR, ['Controller', '**', '*Test.php'])
+        $PATH.implode(DIRECTORY_SEPARATOR, ['Controller', '**', '*Test.php']),
     )
         ->prefix(\BaksDev\Core\Type\Locale\Locale::routes())
         ->namePrefix('users-profile-balance:');

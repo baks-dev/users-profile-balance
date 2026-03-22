@@ -30,10 +30,10 @@ use BaksDev\Users\Profile\Balance\Repository\CurrentProfileBalanceEvent\CurrentP
 use BaksDev\Users\Profile\Balance\Repository\CurrentProfileBalanceEvent\CurrentProfileBalanceEventRepository;
 use BaksDev\Users\Profile\Balance\Type\Id\ProfileBalanceUid;
 use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\NewEdit\Tests\ProfileBalanceHandlerNewTest;
+use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use PHPUnit\Framework\Attributes\Group;
-use PHPUnit\Framework\Attributes\DependsOnClass;
 
 #[When(env: 'test')]
 #[Group('users-profile-balance')]

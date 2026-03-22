@@ -51,26 +51,26 @@ final class SubBalanceDTO
         return $this->profile;
     }
 
-    public function getSeller(): UserProfileUid
-    {
-        return $this->seller;
-    }
-
-    public function getMoney(): Money
-    {
-        return $this->money;
-    }
-
     public function setProfile(UserProfileUid|UserProfile $profile): self
     {
         $this->profile = ($profile instanceof UserProfile) ? $profile->getId() : $profile;
         return $this;
     }
 
+    public function getSeller(): UserProfileUid
+    {
+        return $this->seller;
+    }
+
     public function setSeller(UserProfileUid|UserProfile $seller): self
     {
         $this->seller = ($seller instanceof UserProfile) ? $seller->getId() : $seller;
         return $this;
+    }
+
+    public function getMoney(): Money
+    {
+        return $this->money;
     }
 
     public function setMoney(Money $money): self

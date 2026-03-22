@@ -25,13 +25,13 @@ declare(strict_types=1);
 
 namespace BaksDev\Users\Profile\Balance\Entity\Event;
 
+use BaksDev\Core\Entity\EntityEvent;
 use BaksDev\Users\Profile\Balance\Entity\Debt\ProfileBalanceDebt;
 use BaksDev\Users\Profile\Balance\Entity\Invariable\ProfileBalanceInvariable;
 use BaksDev\Users\Profile\Balance\Entity\ProfileBalance;
 use BaksDev\Users\Profile\Balance\Type\Event\ProfileBalanceEventUid;
 use BaksDev\Users\Profile\Balance\Type\Id\ProfileBalanceUid;
 use Doctrine\ORM\Mapping as ORM;
-use BaksDev\Core\Entity\EntityEvent;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -62,8 +62,8 @@ class ProfileBalanceEvent extends EntityEvent
     #[ORM\OneToOne(targetEntity: ProfileBalanceInvariable::class, mappedBy: 'event', cascade: ['all'])]
     private ?ProfileBalanceInvariable $invariable;
 
-    /** 
-     * Задолженность 
+    /**
+     * Задолженность
      */
     #[ORM\OneToOne(targetEntity: ProfileBalanceDebt::class, mappedBy: 'event', cascade: ['all'])]
     private ?ProfileBalanceDebt $debt;
@@ -87,9 +87,9 @@ class ProfileBalanceEvent extends EntityEvent
         return (string) $this->id;
     }
 
-    public function getId(): ProfileBalanceEventUid
+    public function getMain(): ?ProfileBalanceUid
     {
-        return $this->id;
+        return $this->main;
     }
 
     /**
@@ -100,9 +100,9 @@ class ProfileBalanceEvent extends EntityEvent
         $this->main = $main instanceof ProfileBalance ? $main->getId() : $main;
     }
 
-    public function getMain(): ?ProfileBalanceUid
+    public function getId(): ProfileBalanceEventUid
     {
-        return $this->main;
+        return $this->id;
     }
 
     public function getDto($dto): mixed

@@ -26,9 +26,9 @@ declare(strict_types=1);
 namespace BaksDev\Users\Profile\Balance\Controller\Admin\Tests;
 
 use BaksDev\Users\User\Tests\TestUserAccount;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use PHPUnit\Framework\Attributes\Group;
 
 #[Group('users-profile-balance')]
 #[Group('users-profile-balance-controller')]

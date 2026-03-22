@@ -73,14 +73,14 @@ final class ProfileBalanceByProfilesRepository implements ProfileBalanceByProfil
             ->setParameter(
                 'seller',
                 $this->seller instanceof UserProfileUid ? $this->seller : $this->UserProfileTokenStorage->getProfile(),
-                UserProfileUid::TYPE
+                UserProfileUid::TYPE,
             );
 
         $orm->join(
             ProfileBalance::class,
             'main',
             'WITH',
-            'main.id = invariable.main'
+            'main.id = invariable.main',
         );
 
         return $orm->getOneOrNullResult();

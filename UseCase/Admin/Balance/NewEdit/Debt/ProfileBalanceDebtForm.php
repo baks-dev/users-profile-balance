@@ -39,7 +39,7 @@ final class ProfileBalanceDebtForm extends AbstractType
         $builder->add('debt', MoneyType::class,
             [
                 'attr' => [
-                    'data-min' => new Money(1)
+                    'data-min' => new Money(1),
                 ],
                 'currency' => false,
                 'auto_initialize' => false,
@@ -62,7 +62,7 @@ final class ProfileBalanceDebtForm extends AbstractType
         $builder->add('balance', MoneyType::class,
             [
                 'attr' => [
-                    'data-min' => new Money(1)
+                    'data-min' => new Money(1),
                 ],
                 'currency' => false,
                 'auto_initialize' => false,

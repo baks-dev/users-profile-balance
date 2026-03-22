@@ -33,8 +33,8 @@ use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\AddBalance\AddBalanceFor
 use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\AddBalance\AddBalanceHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_PROFILE_BALANCE_NEW')]
@@ -53,7 +53,7 @@ final class AddBalanceController extends AbstractController
             ->createForm(
                 AddBalanceForm::class,
                 $addBalanceDTO,
-                ['action' => $this->generateUrl('users-profile-balance:admin.balance.add')]
+                ['action' => $this->generateUrl('users-profile-balance:admin.balance.add')],
             )
             ->handleRequest($request);
 
@@ -66,7 +66,7 @@ final class AddBalanceController extends AbstractController
                 'page.new',
                 $handle instanceof ProfileBalance ? 'success.new' : 'danger.new',
                 'users-profile-balance.admin',
-                $handle
+                $handle,
             );
 
             return $handle instanceof ProfileBalance ? $this->redirectToRoute('users-profile-balance:admin.index') : $this->redirectToReferer();

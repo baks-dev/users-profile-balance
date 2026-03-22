@@ -47,6 +47,7 @@ final readonly class StatusOrderCompletedOnBalanceSubDispatcher
     /**
      * Диспатчер меняет статус оплаченного заказа на "Выполнен" и отправляет сообщение на диспатчер
      * SubDebtAndBalanceDispatcher для проверки и возможной оплаты следующего заказа
+     *
      * @see SubDebtAndBalanceDispatcher
      */
     public function __invoke(StatusOrderCompletedOnBalanceSubMessage $message): void
@@ -77,7 +78,6 @@ final readonly class StatusOrderCompletedOnBalanceSubDispatcher
         /** Отправляем сообщение для проверки остатка средств на балансе и возможной дальнейшей оплаты других заказов */
         $this->MessageDispatch->dispatch(
             message: new ProfileBalanceMessage($message->getBalanceId()),
-            transport: 'users-profile-balance')
-        ;
+            transport: 'users-profile-balance');
     }
 }

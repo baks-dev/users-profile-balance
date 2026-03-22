@@ -74,15 +74,14 @@ class ProfileBalanceInvariable extends EntityReadonly
         $this->main = $event->getMain();
     }
 
+    public function getMain(): ProfileBalanceUid
+    {
+        return $this->main;
+    }
+
     public function __toString(): string
     {
         return (string) $this->main;
-    }
-
-    public function setEvent(ProfileBalanceEvent $event): self
-    {
-        $this->event = $event;
-        return $this;
     }
 
     public function getEvent(): ProfileBalanceEvent
@@ -90,9 +89,10 @@ class ProfileBalanceInvariable extends EntityReadonly
         return $this->event;
     }
 
-    public function getMain(): ProfileBalanceUid
+    public function setEvent(ProfileBalanceEvent $event): self
     {
-        return $this->main;
+        $this->event = $event;
+        return $this;
     }
 
     public function getProfile(): UserProfileUid

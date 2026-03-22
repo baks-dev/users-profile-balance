@@ -38,8 +38,8 @@ use InvalidArgumentException;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_PROFILE_BALANCE_EDIT')]
@@ -68,7 +68,7 @@ final class EditController extends AbstractController
         $form = $this
             ->createForm(ProfileBalanceForm::class, $profileBalanceDTO, ['action' => $this->generateUrl(
                 'users-profile-balance:admin.newedit.edit',
-                ['id' => $profileBalanceEvent->getInvariable()]
+                ['id' => $profileBalanceEvent->getInvariable()],
             )])
             ->handleRequest($request);
 
@@ -81,7 +81,7 @@ final class EditController extends AbstractController
                 'page.edit',
                 $handle instanceof ProfileBalance ? 'success.edit' : 'danger.edit',
                 'users-profile-balance.admin',
-                $handle
+                $handle,
             );
 
             return $handle instanceof ProfileBalance ? $this->redirectToRoute('users-profile-balance:admin.index') : $this->redirectToReferer();

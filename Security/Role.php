@@ -42,12 +42,20 @@ final class Role implements RoleInterface, MenuAdminInterface
 
     public const string KEY = 'J4KxFpw5Jh';
 
+    /**
+     * Метод возвращает позицию, в которую располагается ссылка в секции меню.
+     */
+    public static function getSortMenu(): int
+    {
+        return 212;
+    }
+
+    /* * Добавляем раздел в меню администрирования. */
+
     public function getRole(): string
     {
         return self::ROLE;
     }
-
-    /* * Добавляем раздел в меню администрирования. */
 
     /** Метод возвращает PATH раздела */
     public function getPath(): string
@@ -61,14 +69,6 @@ final class Role implements RoleInterface, MenuAdminInterface
     public function getGroupMenu(): MenuAdminSectionGroupCollectionInterface|bool
     {
         return new MenuGroupUser();
-    }
-
-    /**
-     * Метод возвращает позицию, в которую располагается ссылка в секции меню.
-     */
-    public static function getSortMenu(): int
-    {
-        return 212;
     }
 
     /**

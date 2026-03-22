@@ -25,4 +25,4 @@ declare(strict_types=1);
 
 namespace BaksDev\Users\Profile\Balance\Entity\Invariable;
 
-interface ProfileBalanceInvariableInterface {}
+interface ProfileBalanceInvariableInterface { }

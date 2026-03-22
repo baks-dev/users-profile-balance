@@ -25,15 +25,15 @@ declare(strict_types=1);
 
 namespace BaksDev\Users\Profile\Balance\Controller\Admin;
 
+use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Form\Search\SearchForm;
+use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use BaksDev\Users\Profile\Balance\Repository\AllProfilesBalance\AllProfilesBalanceInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use BaksDev\Core\Controller\AbstractController;
-use Symfony\Component\Routing\Attribute\Route;
-use BaksDev\Core\Listeners\Event\Security\RoleSecurity;
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
 #[RoleSecurity('ROLE_PROFILE_BALANCE_INDEX')]
@@ -53,7 +53,7 @@ final class IndexController extends AbstractController
             ->createForm(
                 type: SearchForm::class,
                 data: $search,
-                options: ['action' => $this->generateUrl('users-profile-balance:admin.index')]
+                options: ['action' => $this->generateUrl('users-profile-balance:admin.index')],
             )
             ->handleRequest($request);
 

@@ -73,14 +73,14 @@ final class AllProfilesBalanceRepository implements AllProfilesBalanceInterface
             ->setParameter(
                 'seller',
                 $this->seller instanceof UserProfileUid ? $this->seller : $this->UserProfileTokenStorage->getProfile(),
-                UserProfileUid::TYPE
+                UserProfileUid::TYPE,
             );
 
         $dbal->join(
             'balance_invariable',
             ProfileBalance::class,
             'balance',
-            'balance.event = balance_invariable.event'
+            'balance.event = balance_invariable.event',
         );
 
         $dbal
@@ -90,7 +90,7 @@ final class AllProfilesBalanceRepository implements AllProfilesBalanceInterface
                 'balance_invariable',
                 ProfileBalanceDebt::class,
                 'balance_debt',
-                'balance_debt.event = balance_invariable.event'
+                'balance_debt.event = balance_invariable.event',
             );
 
 
@@ -101,7 +101,7 @@ final class AllProfilesBalanceRepository implements AllProfilesBalanceInterface
             'balance_invariable',
             UserProfile::class,
             'profile',
-            'profile.id = balance_invariable.profile'
+            'profile.id = balance_invariable.profile',
         );
 
         $dbal
@@ -109,7 +109,7 @@ final class AllProfilesBalanceRepository implements AllProfilesBalanceInterface
                 'balance_invariable',
                 UserProfileInfo::class,
                 'profile_info',
-                'profile_info.profile = balance_invariable.profile'
+                'profile_info.profile = balance_invariable.profile',
             );
 
 
@@ -120,7 +120,7 @@ final class AllProfilesBalanceRepository implements AllProfilesBalanceInterface
                 'profile',
                 UserProfilePersonal::class,
                 'profile_personal',
-                'profile_personal.event = profile.event'
+                'profile_personal.event = profile.event',
             );
 
 

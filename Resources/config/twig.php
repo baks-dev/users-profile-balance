@@ -31,6 +31,6 @@ use Symfony\Config\TwigConfig;
 return static function(TwigConfig $twig) {
     $twig->path(
         BaksDevUsersProfileBalanceBundle::PATH.implode(DIRECTORY_SEPARATOR, ['Resources', 'view', '']),
-        'users-profile-balance'
+        'users-profile-balance',
     );
 };

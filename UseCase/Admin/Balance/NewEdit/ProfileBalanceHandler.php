@@ -33,7 +33,7 @@ use BaksDev\Users\Profile\Balance\Messenger\ProfileBalanceMessage;
 final class ProfileBalanceHandler extends AbstractHandler
 {
     public function handle(ProfileBalanceDTO $command): string|ProfileBalance
-	{
+    {
         $this->setCommand($command);
 
         $this->preEventPersistOrUpdate(ProfileBalance::class, ProfileBalanceEvent::class);
@@ -49,9 +49,9 @@ final class ProfileBalanceHandler extends AbstractHandler
         /* Отправляем сообщение в шину */
         $this->messageDispatch->dispatch(
             message: new ProfileBalanceMessage($this->main->getId(), $this->main->getEvent(), $command->getEvent()),
-            transport: 'users-profile-balance'
+            transport: 'users-profile-balance',
         );
 
         return $this->main;
-	}
+    }
 }

@@ -35,9 +35,9 @@ use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\NewEdit\ProfileBalanceDT
 use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\NewEdit\ProfileBalanceHandler;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
-use PHPUnit\Framework\Attributes\Group;
 
 #[Group('users-profile-balance')]
 #[Group('users-profile-balance-usecase')]

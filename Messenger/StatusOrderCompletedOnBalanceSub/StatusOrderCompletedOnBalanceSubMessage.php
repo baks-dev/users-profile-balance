@@ -44,7 +44,8 @@ final readonly class StatusOrderCompletedOnBalanceSubMessage
         UserProfileUid|string $profile,
         UserProfileUid|string $seller,
         private ?string $comment,
-        ProfileBalanceUid|string $balanceId)
+        ProfileBalanceUid|string $balanceId
+    )
     {
         $this->orderEvent = (string) $orderEvent;
         $this->profile = (string) $profile;

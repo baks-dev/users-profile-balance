@@ -26,6 +26,7 @@ declare(strict_types=1);
 namespace BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\AddBalance;
 
 use BaksDev\Reference\Money\Type\Money;
+use BaksDev\Users\Profile\UserProfile\Repository\UserProfileChoice\UserProfileChoiceInterface;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -34,7 +35,6 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use BaksDev\Users\Profile\UserProfile\Repository\UserProfileChoice\UserProfileChoiceInterface;
 
 final class AddBalanceForm extends AbstractType
 {
@@ -54,13 +54,13 @@ final class AddBalanceForm extends AbstractType
             'expanded' => false,
             'multiple' => false,
             'required' => false,
-            'attr' => ['data-select' => 'select2',]
+            'attr' => ['data-select' => 'select2',],
         ]);
 
         $builder->add('money', MoneyType::class,
             [
                 'attr' => [
-                    'data-min' => new Money(1)
+                    'data-min' => new Money(1),
                 ],
                 'currency' => false,
                 'auto_initialize' => false,
@@ -84,7 +84,7 @@ final class AddBalanceForm extends AbstractType
         $builder->add(
             'add_profile_balance',
             SubmitType::class,
-            ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-primary']]
+            ['label' => 'Save', 'label_html' => true, 'attr' => ['class' => 'btn-primary']],
         );
     }
 

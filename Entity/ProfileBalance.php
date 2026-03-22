@@ -25,13 +25,14 @@ declare(strict_types=1);
 
 namespace BaksDev\Users\Profile\Balance\Entity;
 
+use BaksDev\Users\Profile\Balance\Entity\Event\ProfileBalanceEvent;
+use BaksDev\Users\Profile\Balance\Type\Event\ProfileBalanceEventUid;
+use BaksDev\Users\Profile\Balance\Type\Id\ProfileBalanceUid;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use BaksDev\Users\Profile\Balance\Type\Id\ProfileBalanceUid;
-use BaksDev\Users\Profile\Balance\Type\Event\ProfileBalanceEventUid;
-use BaksDev\Users\Profile\Balance\Entity\Event\ProfileBalanceEvent;
 
 /* ProfileBalance */
+
 #[ORM\Entity]
 #[ORM\Table(name: 'profile_balance')]
 class ProfileBalance
@@ -64,14 +65,6 @@ class ProfileBalance
     }
 
     /**
-     * Идентификатор
-     */
-    public function getId(): ProfileBalanceUid
-    {
-        return $this->id;
-    }
-
-    /**
      * Идентификатор события
      */
     public function getEvent(): ProfileBalanceEventUid
@@ -82,5 +75,13 @@ class ProfileBalance
     public function setEvent(ProfileBalanceEventUid|ProfileBalanceEvent $event): void
     {
         $this->event = $event instanceof ProfileBalanceEvent ? $event->getId() : $event;
+    }
+
+    /**
+     * Идентификатор
+     */
+    public function getId(): ProfileBalanceUid
+    {
+        return $this->id;
     }
 }
