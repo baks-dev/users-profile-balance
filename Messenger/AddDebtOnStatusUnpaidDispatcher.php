@@ -34,7 +34,11 @@ use BaksDev\Reference\Money\Type\Money;
 use BaksDev\Users\Profile\Balance\Entity\ProfileBalance;
 use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\AddDebt\AddDebtDTO;
 use BaksDev\Users\Profile\Balance\UseCase\Admin\Balance\AddDebt\AddDebtHandler;
+use BaksDev\Users\Profile\UserProfile\Entity\Event\UserProfileEvent;
+use BaksDev\Users\Profile\UserProfile\Repository\CurrentUserProfileEvent\CurrentUserProfileEventInterface;
 use BaksDev\Users\Profile\UserProfile\Repository\UserProfileTokenStorage\UserProfileTokenStorageInterface;
+use BaksDev\Users\Profile\UserProfile\Type\Event\UserProfileEventUid;
+use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Target;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -50,7 +54,7 @@ final readonly class AddDebtOnStatusUnpaidDispatcher
         private DeduplicatorInterface $Deduplicator,
         private OrderEventInterface $OrderEventRepository,
         private AddDebtHandler $AddDebtHandler,
-        private UserProfileTokenStorageInterface $UserProfileTokenStorage,
+        private CurrentUserProfileEventInterface $CurrentUserProfileEventRepository,
     ) {}
 
 
@@ -85,6 +89,16 @@ final readonly class AddDebtOnStatusUnpaidDispatcher
             return;
         }
 
+        if(false === ($orderEvent->getOrderProfile() instanceof UserProfileUid))
+        {
+            $this->Logger->error(
+                'users-profile-balance: В заказе отсутствует информация о профиле магазина для увеличения задолженности',
+                [self::class.':'.__LINE__, var_export($message, true)],
+            );
+
+            return;
+        }
+
         $priceTotal = new Money(0);
 
         /** @var OrderProduct $product */
@@ -93,18 +107,42 @@ final readonly class AddDebtOnStatusUnpaidDispatcher
             $priceTotal->add($product->getPrice());
         }
 
+        /** Получаем профиль клиента по идентификатору события профиля */
+        if(false === ($orderEvent->getClientProfile() instanceof UserProfileEventUid))
+        {
+            $this->Logger->critical(
+                'users-profile-balance: В заказе отсутствует информация о клиенте для увеличения задолженности',
+                [self::class.':'.__LINE__, var_export($message, true)],
+            );
+
+            return;
+        }
+
+        $UserProfileEvent = $this->CurrentUserProfileEventRepository
+            ->findByEvent($orderEvent->getClientProfile());
+
+        if(false === ($UserProfileEvent instanceof UserProfileEvent))
+        {
+            $this->Logger->critical(
+                sprintf('users-profile-balance: Не найдено событие %s профиля клиента', $orderEvent->getClientProfile()),
+                [self::class.':'.__LINE__, var_export($message, true)],
+            );
+
+            return;
+        }
 
         $addDebtDTO = new AddDebtDTO()
-            ->setProfile($orderEvent->getOrderProfile())
-            ->setSeller($this->UserProfileTokenStorage->getProfile())
+            ->setProfile($UserProfileEvent->getMain())
+            ->setSeller($orderEvent->getOrderProfile())
             ->setMoney($priceTotal);
+
 
         $handle = $this->AddDebtHandler->handle($addDebtDTO);
 
         if($handle instanceof ProfileBalance)
         {
             $this->Logger->info(
-                'users-profile-balance: Успешно увеличена задолженность',
+                'users-profile-balance: Задолженность успешно увеличена ',
                 [self::class.':'.__LINE__, var_export($message, true)],
             );
 
