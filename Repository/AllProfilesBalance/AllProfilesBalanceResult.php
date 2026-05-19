@@ -25,6 +25,8 @@ declare(strict_types=1);
 
 namespace BaksDev\Users\Profile\Balance\Repository\AllProfilesBalance;
 
+use BaksDev\Auth\Email\Entity\Status\AccountStatus;
+use BaksDev\Auth\Email\Type\Email\AccountEmail;
 use BaksDev\Reference\Money\Type\Money;
 use BaksDev\Users\Profile\Balance\Type\Id\ProfileBalanceUid;
 use BaksDev\Users\Profile\UserProfile\Type\Id\UserProfileUid;
@@ -37,6 +39,8 @@ final readonly class AllProfilesBalanceResult
         private int $debt,
         private int $balance,
         private string|null $profile_username,
+        private string|null $account_email,
+        private string|null $account_status,
     ) {}
 
     public function getMain(): ProfileBalanceUid
@@ -63,4 +67,16 @@ final readonly class AllProfilesBalanceResult
     {
         return $this->profile_username;
     }
+
+    public function getAccountEmail(): ?AccountEmail
+    {
+        return $this->account_email ? new AccountEmail($this->account_email) : null;
+    }
+
+    public function getAccountStatus(): ?string
+    {
+        return $this->account_status;
+    }
+
+
 }

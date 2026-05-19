@@ -66,7 +66,7 @@ class ProfileBalanceEvent extends EntityEvent
      * Задолженность
      */
     #[ORM\OneToOne(targetEntity: ProfileBalanceDebt::class, mappedBy: 'event', cascade: ['all'])]
-    private ?ProfileBalanceDebt $debt;
+    private ?ProfileBalanceDebt $debt = null;
 
     public function __construct()
     {
@@ -140,8 +140,8 @@ class ProfileBalanceEvent extends EntityEvent
         return $this;
     }
 
-    public function getDebt(): ProfileBalanceDebt
+    public function getDebt(): ?ProfileBalanceDebt
     {
-        return $this->debt;
+        return $this->debt ?: new ProfileBalanceDebt($this);
     }
 }

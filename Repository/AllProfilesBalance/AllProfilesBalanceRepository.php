@@ -25,6 +25,9 @@ declare(strict_types=1);
 
 namespace BaksDev\Users\Profile\Balance\Repository\AllProfilesBalance;
 
+use BaksDev\Auth\Email\Entity\Account;
+use BaksDev\Auth\Email\Entity\Event\AccountEvent;
+use BaksDev\Auth\Email\Entity\Status\AccountStatus;
 use BaksDev\Core\Doctrine\DBALQueryBuilder;
 use BaksDev\Core\Form\Search\SearchDTO;
 use BaksDev\Core\Services\Paginator\PaginatorInterface;
@@ -112,7 +115,6 @@ final class AllProfilesBalanceRepository implements AllProfilesBalanceInterface
                 'profile_info.profile = balance_invariable.profile',
             );
 
-
         // Personal
         $dbal
             ->addSelect('profile_personal.username AS profile_username')
@@ -121,6 +123,33 @@ final class AllProfilesBalanceRepository implements AllProfilesBalanceInterface
                 UserProfilePersonal::class,
                 'profile_personal',
                 'profile_personal.event = profile.event',
+            );
+
+
+        /** ACCOUNT */
+        $dbal->leftJoin(
+            'profile_info',
+            Account::class,
+            'account',
+            'account.id = profile_info.usr',
+        );
+
+        $dbal
+            ->addSelect('account_event.email AS account_email')
+            ->leftJoin(
+                'account',
+                AccountEvent::class,
+                'account_event',
+                'account_event.id = account.event AND account_event.account = account.id',
+            );
+
+        $dbal
+            ->addSelect('account_status.status as account_status')
+            ->leftJoin(
+                'account_event',
+                AccountStatus::class,
+                'account_status',
+                'account_status.event = account_event.id',
             );
 
 

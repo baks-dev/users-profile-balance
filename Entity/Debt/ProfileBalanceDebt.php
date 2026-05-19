@@ -45,12 +45,12 @@ class ProfileBalanceDebt extends EntityEvent
     /** Задолженность покупателя */
     #[Assert\NotBlank]
     #[ORM\Column(type: Money::TYPE)]
-    private Money $debt;
+    private ?Money $debt = null;
 
     /** Баланс покупателя */
     #[Assert\NotBlank]
     #[ORM\Column(type: Money::TYPE)]
-    private Money $balance;
+    private ?Money $balance = null;
 
     public function __construct(ProfileBalanceEvent $event)
     {
@@ -59,12 +59,12 @@ class ProfileBalanceDebt extends EntityEvent
 
     public function getDebt(): Money
     {
-        return $this->debt;
+        return $this->debt ?: new Money(0);
     }
 
     public function getBalance(): Money
     {
-        return $this->balance;
+        return $this->balance ?: new Money(0);
     }
 
     public function addDebt(Money $money): self
