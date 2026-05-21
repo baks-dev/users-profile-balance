@@ -140,7 +140,7 @@ class ProfileBalanceEvent extends EntityEvent
         return $this;
     }
 
-    public function getDebt(): ?ProfileBalanceDebt
+    public function getDebt(): ProfileBalanceDebt
     {
         return $this->debt ?: new ProfileBalanceDebt($this);
     }
